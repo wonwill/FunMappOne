@@ -2,6 +2,7 @@ library(shiny)
 library(shinyjs)
 library(shinyBS)
 
+
 jsCode <- "
 shinyjs.disableTab = function(name) {
   var tab = $('.nav li a[data-value=' + name + ']');
@@ -63,7 +64,7 @@ z-index: 1000000;
 }"
 fluidPage(
   useShinyjs(),
-  extendShinyjs(text=jsCode),
+  extendShinyjs(text=jsCode,functions = c("disableTab","enableTab","addCustomTooltip","removeCustomTooltip")),
   #tags$head(tags$script(src="resizing.js")),
   inlineCSS(appCSS),
   hidden(div(id="loading-content",
@@ -226,7 +227,7 @@ fluidPage(
 
                             fluidRow(
                               column(4,checkboxInput("doGrouping", "Show categories", value = TRUE)),
-                              column(4,checkboxInput("aspectRatio", "Keep aspect ratio", value = TRUE)),
+                              column(4,checkboxInput("aspectRatio", "Keep aspect ratio", value = FALSE)),
                               column(4,actionButton("do", "Plot Map")),
                               shinyBS::bsTooltip(id = "do",title ="NOTE: press the Plot Mat button every time you update the map!",placement = "bottom")
 
